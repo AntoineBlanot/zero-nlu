@@ -28,7 +28,7 @@ class BaseExtractor():
         raise NotImplementedError()
     
     @torch.no_grad()
-    def extract(self, context: str, entities: List[str], topk: int =1) -> Dict[str, Any]:
+    def extract(self, context: str, entities: List[str], topk: int = 1) -> Dict[str, Any]:
         """
         Extract entities from a context.
         Entities are mapped to a question and fed to a QA model using a mapping.
