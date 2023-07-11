@@ -38,7 +38,7 @@ predictions = []
 pbar = tqdm(range(len(data)), leave=False, desc='Evaluation')
 for id, sample in data.iterrows():
     pbar.update()
-    extraction_res = extractor.extract(entities=sample.entities, context=sample.context)
+    extraction_res = extractor.extract(context=sample.context, entities=sample.entities)
     predictions.append(dict(id=id, entities=sample.entities, sentence=sample.user_sentence, prediction=extraction_res))
 
 metric = evaluate.load('squad_v2')
