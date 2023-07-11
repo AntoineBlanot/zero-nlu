@@ -34,7 +34,7 @@ class BaseExtractor():
         Entities are mapped to a question and fed to a QA model using a mapping.
         """
 
-        questions = [self.entity_mapping.get(ent, f"What is the user's {ent}?") for ent in entities]
+        questions = [self.entity_mapping.get(ent, f"What is the {ent} of the user?") for ent in entities]
         examples = [dict(id=f"id_{i}", context=context, question=q) for i,q in enumerate(questions)]
         features = prepare_features(examples=examples, tokenizer=self.tokenizer)
         inputs = self.prepare_inputs(features=features)
