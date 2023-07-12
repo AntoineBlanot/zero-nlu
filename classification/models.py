@@ -34,9 +34,9 @@ LABEL_MAPPING = {
     "topic-travel-homecountry-favorite-hemisphere-north": "I like the North.",
     "topic-travel-homecountry-favorite-hemisphere-south": "I like the South.",
 
-    # "positive": "The document expresses a sentiment of positivity.",
-    # "negative": "The document expresses a sentiment of negativity.",
-    # "neutral": "The document expresses a sentiment of neutrality."
+    "positive": "This text expresses a positive sentiment.",
+    "negative": "This text expresses a negative sentiment.",
+    "neutral": "This text expresses a neutral sentiment."
 }
 
 class BaseClassifier():
