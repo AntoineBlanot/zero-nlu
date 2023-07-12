@@ -4,8 +4,9 @@ import json
 import pandas as pd
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 from models import Classifier, LoRAClassifier
+from tasks import IntentRecognition, BoolQA, SentimentAnalysis
 
-DOCUMENT_TEMPLATE = '{} {}'
+TASK_MAPPING = {'intent': IntentRecognition(), 'boolqa': BoolQA(), 'sentiment': SentimentAnalysis()}
 
 parser = ArgumentParser()
 parser.add_argument('-m', '--model_name_or_path', type=str)
@@ -24,12 +25,11 @@ pbar = tqdm(range(len(data)), leave=False, desc='Evaluation')
 for i, sample in data.iterrows():
     pbar.update()
     
-    if args.task == 'boolqa':
-        document = DOCUMENT_TEMPLATE.format(sample.haru_sentence, sample.user_sentence)
-    else:
-        document = sample.user_sentence
-    
-    extraction_res = classifier.classify(document=document, labels=sample.candidate_labels, no_class=args.no_class)
+    task = TASK_MAPPING[args.task]
+    document = task.generate_document(document=sample.user_sentence, question=sample.haru_sentence)
+    candidates = task.generate_candidates(labels=sample.candidate_labels, question=sample.haru_sentence)
+
+    extraction_res = classifier.classify(document=document, candidates=candidates, labels=sample.candidate_labels, no_class=args.no_class)
     predictions.append(extraction_res)
 
 predictions_for_metrics = [x['label'] for x in predictions]
