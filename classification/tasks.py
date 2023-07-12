@@ -41,6 +41,43 @@ class IntentRecognition(Task):
             "topic-travel-homecountry-favorite-hemisphere-north": "I like the North.",
             "topic-travel-homecountry-favorite-hemisphere-south": "I like the South.",
 
+            "favorite-continent-asia": "I like Asia.",
+            "favorite-continent-australia": "I like Australia.",
+            "favorite-continent-africa": "I like Africa.",
+            "favorite-continent-antarctica": "I like Antartica.",
+            "favorite-continent-europe": "I like Europe.",
+            "favorite-continent-north-america": "I like North America.",
+            "favorite-continent-south-america": "I like South America.",
+
+            "likes-tennis": "I like tennis.",
+            "likes-baseball": "I like baseball.",
+            "likes-basketball": "I like basketball.",
+
+            "topic-books-likes-both-genre": "I like both genres.",
+            "topic-books-likes-fiction": "I like fiction.",
+            "topic-books-likes-non-fiction": "I like non-fiction.",
+
+            "games": "I like games.",
+            "gardening": "I like gardening.",
+            "working-out": "I like working-out.",
+
+            "topic-hometown-big-city": "It is a big city/town.",
+            "topic-hometown-small-city": "It is a small city/town.",
+
+            "topic-profession-generic-profession": "I have a classic profession.",
+            "topic-profession-evil-profession": "I have a profession related to evil.",
+            "student": "I am a student.",
+
+            "topic-travel-homecountry-human-from-india": "I am from India.",
+            "topic-travel-homecountry-human-from-japan": "I am from Japan.",
+            "topic-travel-homecountry-human-from-usa": "I am from the USA.",
+            "topic-travel-homecountry-human-from-china": "I am from China.",
+            "topic-travel-homecountry-sarcastic-location": "I am from a weird place.",
+
+            "favorite-season-summer": "I like summer.",
+            "favorite-season-winter": "I like winter.",
+            "favorite-season-spring": "I like spring.",
+            "favorite-season-autumn": "I like autumn.",
         }
 
         candidates = [mapping[label] for label in labels]

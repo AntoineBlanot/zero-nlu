@@ -18,7 +18,7 @@ args = parser.parse_args()
 
 classifier = Classifier(name_or_path=args.model_name_or_path) if not args.lora else LoRAClassifier(name_or_path=args.model_name_or_path)
 data = pd.read_json(args.data_path)
-# data = data.loc[data.intent != 'topic-pet-eat-question']
+# data = data.loc[data.intent == 'topic-weather']
 
 predictions = []
 pbar = tqdm(range(len(data)), leave=False, desc='Evaluation')
@@ -41,8 +41,9 @@ print('Precision: {}'.format(prec))
 print('Recall: {}'.format(recall))
 print('F1: {}'.format(f1))
 
-# for i, (idx, sample) in enumerate(data.iterrows()):
-#     print(sample.user_sentence, predictions[i], sample.label)
+for i, (idx, sample) in enumerate(data.iterrows()):
+    if predictions_for_metrics[i] != references_for_metrics[i]:
+        print(sample.user_sentence, predictions[i], sample.label)
 
 with open('res.json', 'w') as f:
     json.dump(predictions, f, indent='\t')
