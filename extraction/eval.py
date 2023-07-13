@@ -3,7 +3,10 @@ from argparse import ArgumentParser
 import json
 import pandas as pd
 import evaluate
+
 from models import Extractor, LoRAExtractor
+from tasks import NamedEntityRecognition
+
 
 CONTEXT_TEMPLATE = 'The robot asks the user this question: {} The user responds to that question as follows: {}'
 INTENT_MAPPING = {
@@ -22,11 +25,13 @@ INTENT_MAPPING = {
     'topic-day-three-food': ['fav_food'],
     'topic-day-three-haru-food': ['haru_fav_food']
 }
+TASK_MAPPING = {'ner': NamedEntityRecognition()}
 
 parser = ArgumentParser()
 parser.add_argument('-m', '--model_name_or_path', type=str)
 parser.add_argument('-d', '--data_path', type=str)
 parser.add_argument('--lora', action='store_true')
+parser.add_argument('-t', '--task', choices=['ner'])
 args = parser.parse_args()
 
 extractor = Extractor(name_or_path=args.model_name_or_path) if not args.lora else LoRAExtractor(name_or_path=args.model_name_or_path)
@@ -38,7 +43,12 @@ predictions = []
 pbar = tqdm(range(len(data)), leave=False, desc='Evaluation')
 for id, sample in data.iterrows():
     pbar.update()
-    extraction_res = extractor.extract(context=sample.context, entities=sample.entities)
+
+    task = TASK_MAPPING[args.task]
+    context = task.generate_document(document=sample.context)
+    questions = task.generate_candidates(entities=sample.entities)
+
+    extraction_res = extractor.extract(context=context, questions=questions, entities=sample.entities)
     predictions.append(dict(id=id, entities=sample.entities, sentence=sample.user_sentence, prediction=extraction_res))
 
 metric = evaluate.load('squad_v2')
