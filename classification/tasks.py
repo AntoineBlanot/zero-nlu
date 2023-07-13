@@ -78,6 +78,58 @@ class IntentRecognition(Task):
             "favorite-season-winter": "I like winter.",
             "favorite-season-spring": "I like spring.",
             "favorite-season-autumn": "I like autumn.",
+
+            "likes-to-play-sports": "I like to play sports.",
+            "likes-to-watch-sports-or-fallback": "I like watch sports.",
+
+            "topic-day-one-session-one-age-wrappingup-childhood": "I like childhood.",
+            "topic-day-one-session-one-age-wrappingup-adulthood": "I like adulthood.",
+            "topic-day-one-session-one-age-wrappingup-oldage": "I like the old age.",
+
+            "topic-language-learn-english-at-school": "At school.",
+            "topic-language-learn-english-at-home": "At home.",
+
+            "topic-birthday-days-february": "28 or 29 days.",
+            "topic-birthday-days-thirty": "30 days.",
+            "topic-birthday-days-thirtyone": "31 days.",
+
+            "topic-day-three-food-noodles": "I like noodles.",
+            "topic-day-three-food-burgers": "I like burgers.",
+            "topic-day-three-food-pizza": "I like pizza.",
+
+            "topic-day-three-number-meals-lessthan-three": "Less than 3.",
+            "topic-day-three-number-meals-between-three-six": "Between 3 and 6.",
+            "topic-day-three-number-meals-greaterthan-six": "Greater than 6.",
+
+            "topic-day-four-school-favorite-subject-science": "I like science lessons.",
+            "topic-day-four-school-favorite-subject-social": "I like social lessons.",
+            "topic-day-four-school-favorite-subject-math": "I like mathematics lessons.",
+            "topic-day-four-school-favorite-subject-english": "I like english lessons.",
+
+            "topic-day-four-school-extra-curriculars-music": "I like music.",
+            "topic-day-four-school-extra-curriculars-sports": "I like sports.",
+
+            "topic-day-five-weather-sun": "I like the sun.",
+            "topic-day-five-weather-rain": "I like the rain.",
+
+            "topic-day-five-weather-favorite-season-summer": "I like summer.",
+            "topic-day-five-weather-favorite-season-winter": "I like winter.",
+            "topic-day-five-weather-favorite-season-spring": "I like spring.",
+            "topic-day-five-weather-favorite-season-fall": "I like autumn.",
+
+            "topic-day-five-travel-sightseeing": "I like sightseeing.",
+            "topic-day-five-travel-food": "I like eating.",
+
+            "topic-olympics-select-user-would-compete-volleyball": "I like volleyball.",
+            "topic-olympics-select-user-would-compete-tennis": "I like tennis.",
+            "topic-olympics-select-user-would-compete-diving": "I like diving.",
+            "topic-olympics-select-user-would-compete-archery": "I like archery.",
+
+            "topic-olympics-user-height-below-seventytwo": "I am less tall than 72 inches.",
+            "topic-olympics-user-height-above-seventytwo": "I am taller than 72 inches.",
+
+            "topic-olympics-haru-height-below-twentyfour": "You are less tall than 24 inches.",
+            "topic-olympics-haru-height-above-twentyfour": "You are taller than 24 inches.",
         }
 
         candidates = [mapping[label] for label in labels]
