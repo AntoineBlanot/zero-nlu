@@ -45,7 +45,7 @@ class LoRAClassifier(BaseClassifier):
     def __init__(self, name_or_path: str, device: str = 'cuda') -> None:
         peft_config = PeftConfig.from_pretrained(name_or_path)
         self.model = AutoModelForSequenceClassification.from_pretrained(peft_config.base_model_name_or_path, num_labels=3).eval()
-        self.model = PeftModel.from_pretrained(model=self.model, model_id=name_or_path, adapter_name='extraction').to(device)
+        self.model = PeftModel.from_pretrained(model=self.model, model_id=name_or_path, adapter_name='classification').to(device)
         self.tokenizer = AutoTokenizer.from_pretrained(name_or_path)
 
     def prepare_inputs(self, features):
