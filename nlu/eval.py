@@ -46,7 +46,7 @@ parser.add_argument('-t', '--task', choices=['intent', 'boolqa', 'sentiment', 'n
 parser.add_argument('--no_class', action='store_true')
 args = parser.parse_args()
 
-classifier = UniversalModel(classifier_path=args.classifier_path, extractor_path=args.extractor_path)
+nlu = UniversalModel(classifier_path=args.classifier_path, extractor_path=args.extractor_path)
 
 if args.task == 'ner':
     data = pd.read_json(args.data_path, dtype={'id': str}).set_index('id')
@@ -63,10 +63,10 @@ for id, sample in data.iterrows():
     inputs = task.generate_inputs(**sample.to_dict())
 
     if args.task == 'ner':
-        res = classifier.extract(**inputs, entities=sample.entities_to_extract)
+        res = nlu.extract(**inputs, entities=sample.entities_to_extract)
         predictions.append(dict(id=id, entities=sample.entities_to_extract, sentence=sample.user_sentence, prediction=res))
     else:
-        res = classifier.classify(**inputs, labels=sample.candidate_labels, no_class=args.no_class)
+        res = nlu.classify(**inputs, labels=sample.candidate_labels, no_class=args.no_class)
         predictions.append(res)
 
 
