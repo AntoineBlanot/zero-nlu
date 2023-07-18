@@ -16,7 +16,8 @@ from utils import (
 
 
 class RobertaForNLU(RobertaPreTrainedModel):
-    _keys_to_ignore_on_load_missing = [r"qa_outputs", r"classifier"]
+    _keys_to_ignore_on_load_unexpected = [r"pooler", r"lm_head"] 
+    _keys_to_ignore_on_load_missing = [r"position_ids", r"qa_outputs", r"classifier"]
 
     def __init__(self, config: PretrainedConfig, *inputs, **kwargs):
         super().__init__(config, *inputs, **kwargs)
@@ -196,8 +197,11 @@ class PeftForNLU(PeftModel):
 class UniversalModel():
 
     def __init__(self, classifier_path: str, extractor_path: str, device: str = 'cuda') -> None:
+        device = device if torch.cuda.is_available() else 'cpu'
+        torch_dtype = torch.float16 if device != 'cpu' else torch.float32
+
         peft_config = PeftConfig.from_pretrained(classifier_path)
-        self.model = RobertaForNLU.from_pretrained(peft_config.base_model_name_or_path, num_labels=3, torch_dtype=torch.float16).eval()
+        self.model = RobertaForNLU.from_pretrained(peft_config.base_model_name_or_path, num_labels=3, torch_dtype=torch_dtype).eval()
         self.model = PeftForNLU.from_pretrained(model=self.model, model_id=classifier_path, adapter_name='classification').to(device)
         self.model.load_adapter(model_id=extractor_path, adapter_name='extraction')
         self.tokenizer = RobertaTokenizerFast.from_pretrained(classifier_path)
